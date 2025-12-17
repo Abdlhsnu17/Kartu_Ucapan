@@ -1,35 +1,237 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pesan Rahasia</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Ucapan</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+            font-family: 'Segoe UI', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .splash {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(255,255,255,0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.8s;
+        }
+        .splash .icon-envelope {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 24px;
+        }
+        .splash h2 {
+            font-size: 2rem;
+            color: #43c6ac;
+            margin-bottom: 12px;
+        }
+        .splash p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .splash button {
+            background: #43c6ac;
+            color: #fff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(67,198,172,0.15);
+            transition: background 0.2s;
+        }
+        .splash button:hover {
+            background: #f8ffae;
+            color: #43c6ac;
+        }
+        .card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            padding: 32px 24px;
+            margin-top: 60px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.8s;
+        }
+        .card.show {
+            opacity: 1;
+        }
+        .card img {
+            width: 120px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+        }
+        .card h1 {
+            font-size: 2rem;
+            margin-bottom: 12px;
+            color: #43c6ac;
+        }
+        .card p {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 24px;
+        }
+        .btn-surprise {
+            background: #43c6ac;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-surprise:hover {
+            background: #f8ffae;
+            color: #43c6ac;
+        }
+        .confetti, .balloon, .flower {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .confetti-piece {
+            position: absolute;
+            width: 12px; height: 12px;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        .balloon-piece {
+            position: absolute;
+            width: 32px; height: 48px;
+            border-radius: 16px 16px 16px 16px / 24px 24px 24px 24px;
+            background: red;
+            opacity: 0.8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            animation: balloonUp 2.5s linear forwards;
+        }
+        @keyframes balloonUp {
+            0% { transform: translateY(100vh) scale(1); }
+            80% { transform: translateY(10vh) scale(1.05);}
+            100% { transform: translateY(-20vh) scale(0.9);}
+        }
+        .flower-piece {
+            position: absolute;
+            width: 32px; height: 32px;
+            background: transparent;
+            opacity: 0.9;
+            animation: flowerSpin 2s linear forwards;
+        }
+        @keyframes flowerSpin {
+            0% { transform: scale(0.5) rotate(0deg);}
+            80% { transform: scale(1.1) rotate(320deg);}
+            100% { transform: scale(1) rotate(360deg);}
+        }
+    </style>
 </head>
 <body>
-
-  <button id="reveal-button">Klik di sini untuk melihat pesan</button>
-
-  <div id="greeting-card" class="greeting-card" style="display: none;">
-    <div class="greeting-header">
-      <h1>Selamat Hari Bahagia!</h1>
+    <!-- Splash Screen -->
+    <div class="splash" id="splash">
+        <svg class="icon-envelope" viewBox="0 0 64 64" fill="none">
+            <rect x="8" y="16" width="48" height="32" rx="6" fill="#43c6ac"/>
+            <polyline points="8,16 32,36 56,16" stroke="#fff" stroke-width="3" fill="none"/>
+        </svg>
+        <h2>Selamat Datang!</h2>
+        <p>Terima kasih sudah membuka kartu ucapan ini.<br>Siap membaca pesan spesial?</p>
+        <button onclick="showMain()">Baca Pesan</button>
     </div>
-
-    <div class="photo-container">
-      <img id="photo" src="assets/photo.jpg" alt="Foto Ucapan">
+    <!-- Halaman Utama -->
+    <div class="card" id="mainCard">
+        <img src="assets/photo.jpg" alt="Foto Ucapan">
+        <h1>Selamat Ulang Tahun!</h1>
+        <p>Semoga hari-harimu selalu penuh kebahagiaan dan kesuksesan. Tetap semangat dan terus berkarya!</p>
+        <button class="btn-surprise" onclick="showSurprise()">Klik untuk Surprise 🎉</button>
     </div>
+    <div class="confetti" id="confetti"></div>
+    <div class="balloon" id="balloon"></div>
+    <div class="flower" id="flower"></div>
+    <script>
+        function showMain() {
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                document.getElementById('mainCard').classList.add('show');
+            }, 800);
+        }
+        setTimeout(() => {
+            if (document.getElementById('splash').style.display !== 'none') {
+                showMain();
+            }
+        }, 3000);
 
-    <div class="message">
-      <p id="message-text">Semoga harimu menyenangkan!</p>
-    </div>
-
-    <button id="effect-btn">
-      <i class="fas fa-magic"></i> Tampilkan Kejutan
-    </button>
-  </div>
-
-  <!-- JavaScript diletakkan sebelum penutup body -->
-  <script src="main.js"></script>
+        function showSurprise() {
+            alert('Semoga harimu penuh warna dan kebahagiaan! 🎊');
+            // Confetti
+            const confetti = document.getElementById('confetti');
+            confetti.innerHTML = '';
+            for (let i = 0; i < 60; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                piece.style.background = `hsl(${Math.random()*360},80%,60%)`;
+                piece.style.left = Math.random()*100 + 'vw';
+                piece.style.top = '-20px';
+                piece.style.transition = `top 1.5s cubic-bezier(.5,1.8,.5,1), left 1.5s`;
+                confetti.appendChild(piece);
+                setTimeout(() => {
+                    piece.style.top = (80 + Math.random()*20) + 'vh';
+                    piece.style.left = (Math.random()*100) + 'vw';
+                }, 10);
+                setTimeout(() => {
+                    piece.remove();
+                }, 1800);
+            }
+            // Balloons
+            const balloon = document.getElementById('balloon');
+            balloon.innerHTML = '';
+            for (let i = 0; i < 10; i++) {
+                const b = document.createElement('div');
+                b.className = 'balloon-piece';
+                b.style.left = Math.random()*90 + 'vw';
+                b.style.background = `hsl(${Math.random()*360},80%,70%)`;
+                b.style.animationDelay = (Math.random()*0.5) + 's';
+                balloon.appendChild(b);
+                setTimeout(() => { b.remove(); }, 2500);
+            }
+            // Flowers
+            const flower = document.getElementById('flower');
+            flower.innerHTML = '';
+            for (let i = 0; i < 8; i++) {
+                const f = document.createElement('div');
+                f.className = 'flower-piece';
+                f.style.left = Math.random()*90 + 'vw';
+                f.style.top = (10 + Math.random()*70) + 'vh';
+                f.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32">
+                    <circle cx="16" cy="16" r="7" fill="pink"/>
+                    <circle cx="8" cy="16" r="5" fill="yellow"/>
+                    <circle cx="24" cy="16" r="5" fill="yellow"/>
+                    <circle cx="16" cy="8" r="5" fill="yellow"/>
+                    <circle cx="16" cy="24" r="5" fill="yellow"/>
+                </svg>`;
+                f.style.animationDelay = (Math.random()*0.5) + 's';
+                flower.appendChild(f);
+                setTimeout(() => { f.remove(); }, 2000);
+            }
+        }
+        window.onload = function() {
+            document.getElementById('mainCard').classList.remove('show');
+        }
+    </script>
 </body>
 </html>

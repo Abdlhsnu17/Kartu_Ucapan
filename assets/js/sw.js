@@ -2,9 +2,11 @@ const CACHE_NAME = 'my-site-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/style.css',
-  '/main.js',
-  '/assets/photo.jpg'
+  '/manifest.json',
+  '/assets/css/style.css',
+  '/assets/js/main.js',
+  '/assets/img/photo.jpg',
+  '/assets/img/icon.png'
 ];
 
 self.addEventListener('install', event => {

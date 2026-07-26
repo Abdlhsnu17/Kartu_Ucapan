@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Elemen DOM ---
+    const fake404Screen = document.getElementById('fake-404-screen');
+    const fixItBtn = document.getElementById('fix-it-btn');
     const splash = document.getElementById('splash');
     const mainCard = document.getElementById('mainCard');
     const showMainBtn = document.getElementById('show-main-btn');
@@ -299,14 +301,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tambahkan event listener ke tombol
     showMainBtn.addEventListener('click', showMain);
     surpriseBtn.addEventListener('click', showSurprise);
+    fixItBtn.addEventListener('click', () => {
+        fake404Screen.style.opacity = '0';
+        fake404Screen.addEventListener('transitionend', () => {
+            fake404Screen.style.display = 'none';
+            splash.style.display = 'flex'; // Tampilkan splash screen yang asli
+        }, { once: true });
+    });
 
-    // Otomatis tampilkan kartu setelah 4 detik jika tombol tidak diklik
-    const autoShowTimer = setTimeout(() => {
-        // Cek apakah splash screen masih terlihat
-        if (window.getComputedStyle(splash).display !== 'none') {
-            showMain();
-        }
-    }, 4000);
+    // Hapus timer otomatis karena alur sekarang dimulai dari klik manual
+    // const autoShowTimer = setTimeout(...)
 
     // --- Service Worker Registration ---
     if ('serviceWorker' in navigator) {

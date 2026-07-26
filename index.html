@@ -8,9 +8,17 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <!-- Splash Screen -->
+    <!-- Fake 404 Screen -->
+    <div class="fake-404-screen" id="fake-404-screen">
+        <div class="error-content">
+            <h1>404</h1>
+            <p class="glitch" data-text="[SERVER NOT FOUND]"><span>[SERVER NOT FOUND]</span></p>
+            <button id="fix-it-btn">Klik untuk membetulkannya</button>
+        </div>
+    </div>
+
     <main>
-        <div class="splash" id="splash">
+        <div class="splash" id="splash" style="display: none;">
             <svg class="icon-envelope" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                 <rect x="8" y="16" width="48" height="32" rx="6" fill="#43c6ac"/>
                 <polyline points="8,16 32,36 56,16" stroke="#fff" stroke-width="3" fill="none"/>

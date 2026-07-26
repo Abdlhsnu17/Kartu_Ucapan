@@ -9,6 +9,70 @@ body {
     align-items: flex-start; /* Rata atas */
     justify-content: center;
 }
+/* --- Fake 404 Screen --- */
+.fake-404-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: #1a1a1a;
+    color: #00ff41;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1001;
+    transition: opacity 1s ease-out;
+}
+.error-content h1 {
+    font-size: 10rem;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+}
+.error-content .glitch {
+    position: relative;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+.glitch span {
+    position: relative;
+    z-index: 1;
+}
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    overflow: hidden;
+}
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00c1;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    animation: glitch-anim-2 2s infinite linear alternate-reverse;
+}
+@keyframes glitch-anim-1 { 0% { clip-path: inset(5% 0 90% 0); } 100% { clip-path: inset(80% 0 5% 0); } }
+@keyframes glitch-anim-2 { 0% { clip-path: inset(95% 0 2% 0); } 100% { clip-path: inset(10% 0 85% 0); } }
+
+.error-content button {
+    background: transparent;
+    border: 2px solid #00ff41;
+    color: #00ff41;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+.error-content button:hover { background: #00ff41; color: #1a1a1a; }
+
 .splash {
     position: fixed;
     top: 0; left: 0;

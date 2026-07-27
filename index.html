@@ -21,12 +21,26 @@
     <div class="photo-upload-screen" id="photo-upload-screen">
         <div class="upload-content">
             <div class="arrow-animation"></div>
-            <h2>Pilih Foto Spesial</h2>
-            <p>Jadikan kartu ini lebih personal dengan fotomu. Jika tidak, foto default akan digunakan.</p>
+            <h2>Satu Sentuhan Personal</h2>
+            <p>Unggah sebuah foto kenangan untuk membuat kejutan ini jauh lebih istimewa. Kamu juga bisa melewatinya jika mau.</p>
             <input type="file" id="photo-upload-input" accept="image/*" hidden>
             <label for="photo-upload-input" class="upload-btn">Unggah Foto</label>
-            <button id="skip-upload-btn">Lanjutkan Saja</button>
+            <button id="skip-upload-btn">Lewati</button>
         </div>
+    </div>
+
+    <!-- Layar Mystery Box -->
+    <div class="mystery-box-screen" id="mystery-box-screen" style="display: none;">
+        <div class="mystery-content">
+            <h2>Sebuah Kotak Misterius!</h2>
+            <p>Temukan kunci yang tepat untuk membukanya.</p>
+        </div>
+        <div class="box-container">
+            <div class="mystery-box" id="mystery-box">
+                <div class="keyhole"></div>
+            </div>
+        </div>
+        <div class="keys-container" id="keys-container"></div>
     </div>
 
     <main>
@@ -67,6 +81,7 @@
             <p class="finale-text">Semoga kamu suka dengan kejutan kecil ini. Have a great day!</p>
         </div>
     </div>
+    <audio id="unlock-sound" src="assets/audio/unlock.mp3" preload="auto"></audio>
     <audio id="surprise-sound" src="assets/audio/surprise.mp3" preload="auto"></audio>
     <script src="assets/js/main.js" defer></script>
 </body>

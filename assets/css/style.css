@@ -1,5 +1,19 @@
+:root {
+    --bg-grad-start: #f8ffae;
+    --bg-grad-end: #43c6ac;
+    --primary-color: #43c6ac;
+    --secondary-color: #f8ffae;
+    --text-color: #333;
+    --love-color: #ff7e9f;
+    --white-color: #fff;
+    --dark-bg: #1a1a1a;
+    --glitch-green: #00ff41;
+    --glitch-magenta: #ff00c1;
+    --glitch-cyan: #00fff9;
+}
+
 body {
-    background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+    background: linear-gradient(135deg, var(--bg-grad-start) 0%, var(--bg-grad-end) 100%);
     font-family: 'Segoe UI', sans-serif;
     min-height: 100vh;
     margin: 0;
@@ -14,8 +28,8 @@ body {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
-    background: #1a1a1a;
-    color: #00ff41;
+    background: var(--dark-bg);
+    color: var(--glitch-green);
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     align-items: center;
@@ -28,7 +42,7 @@ body {
     font-size: 10rem;
     font-weight: bold;
     margin: 0;
-    text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+    text-shadow: 0 0 10px var(--glitch-green), 0 0 20px var(--glitch-green);
 }
 .error-content .glitch {
     position: relative;
@@ -46,18 +60,18 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: #1a1a1a;
+    height: 100%; 
+    background: var(--dark-bg);
     overflow: hidden;
 }
 .glitch::before {
     left: 2px;
-    text-shadow: -2px 0 #ff00c1;
+    text-shadow: -2px 0 var(--glitch-magenta);
     animation: glitch-anim-1 2s infinite linear alternate-reverse;
 }
 .glitch::after {
     left: -2px;
-    text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+    text-shadow: -2px 0 var(--glitch-cyan), 2px 2px var(--glitch-magenta);
     animation: glitch-anim-2 2s infinite linear alternate-reverse;
 }
 @keyframes glitch-anim-1 { 0% { clip-path: inset(5% 0 90% 0); } 100% { clip-path: inset(80% 0 5% 0); } }
@@ -65,13 +79,13 @@ body {
 
 .error-content button {
     background: transparent;
-    border: 2px solid #00ff41;
-    color: #00ff41;
+    border: 2px solid var(--glitch-green);
+    color: var(--glitch-green);
     padding: 10px 20px;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
 }
-.error-content button:hover { background: #00ff41; color: #1a1a1a; }
+.error-content button:hover { background: var(--glitch-green); color: var(--dark-bg); }
 
 /* --- Layar Unggah Foto --- */
 .photo-upload-screen {
@@ -91,19 +105,19 @@ body {
 }
 .upload-content h2 {
     font-size: 2rem;
-    color: #43c6ac;
+    color: var(--primary-color);
     margin-bottom: 12px;
 }
 .upload-content p {
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 24px;
     max-width: 400px;
 }
 .upload-content .upload-btn,
 .upload-content button {
-    background: #43c6ac;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--white-color);
     border: none;
     padding: 12px 32px;
     border-radius: 8px;
@@ -115,13 +129,13 @@ body {
 }
 .upload-content .upload-btn:hover,
 .upload-content button:hover {
-    background: #f8ffae;
-    color: #43c6ac;
+    background: var(--secondary-color);
+    color: var(--primary-color);
 }
 .arrow-animation {
     width: 60px; height: 60px;
-    border-top: 5px solid #43c6ac;
-    border-right: 5px solid #43c6ac;
+    border-top: 5px solid var(--primary-color);
+    border-right: 5px solid var(--primary-color);
     margin: 0 auto 1rem;
     transform: rotate(-45deg);
     animation: arrow-move 1.5s infinite ease-in-out;
@@ -130,6 +144,114 @@ body {
     0% { transform: translateY(10px) translateX(10px) rotate(-45deg); opacity: 0; }
     50% { opacity: 1; }
     100% { transform: translateY(-10px) translateX(-10px) rotate(-45deg); opacity: 0; }
+}
+
+/* --- Layar Mystery Box --- */
+.mystery-box-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: var(--bg-grad-start);
+    display: none; /* Sembunyikan di awal */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    text-align: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+.mystery-content h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+.mystery-content p {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 24px;
+}
+.box-container {
+    position: relative;
+    margin-top: 2rem;
+    perspective: 1000px; /* Diperlukan untuk efek 3D */
+}
+.mystery-box {
+    width: 150px;
+    height: 150px;
+    background: #8B4513; /* Warna kayu */
+    border: 5px solid #5C2E00;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    transform-style: preserve-3d; /* Penting untuk 3D */
+    transition: transform 1s ease-in-out;
+}
+/* Membuat tutup kotak */
+.mystery-box::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 100%;
+    height: 100%;
+    background: #A0522D; /* Warna kayu sedikit lebih terang */
+    border: 5px solid #5C2E00;
+    border-radius: 10px;
+    transform-origin: bottom;
+    transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.mystery-box.open {
+    transform: translateY(20px) rotateX(-10deg);
+    transition-delay: 1s; /* Beri jeda sebelum kotak bergerak */
+}
+.mystery-box.open::before {
+    transform: rotateX(120deg) translateZ(20px) translateY(-20px);
+}
+.keyhole {
+    width: 20px;
+    height: 20px;
+    background: #333;
+    border-radius: 50%;
+    position: relative;
+    z-index: 2; /* Pastikan di atas tutup */
+}
+.keyhole::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 25px;
+    background: #333;
+    top: 15px;
+    left: 7px;
+}
+.keys-container {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+}
+.key {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.5s ease;
+}
+.key svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(2px 2px 3px rgba(0,0,0,0.3));
+}
+.key:hover {
+    transform: scale(1.1);
+}
+.key.wrong {
+    animation: card-shake 0.4s; /* Gunakan animasi getar yang sudah ada */
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .splash {
@@ -151,30 +273,30 @@ body {
 }
 .splash h2 {
     font-size: 2rem;
-    color: #43c6ac;
+    color: var(--primary-color);
     margin-bottom: 12px;
 }
 .splash p {
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 24px;
     text-align: center;
     padding: 0 1rem;
 }
 .splash button {
-    background: #43c6ac;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--white-color);
     border: none;
     padding: 12px 32px;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(67,198,172,0.15);
+    box-shadow: 0 2px 8px rgba(67, 198, 172, 0.15);
     transition: background 0.2s, color 0.2s;
 }
 .splash button:hover {
-    background: #f8ffae;
-    color: #43c6ac;
+    background: var(--secondary-color);
+    color: var(--primary-color);
 }
 /* --- Animasi Jejak Kaki --- */
 .paw-prints-container {
@@ -194,7 +316,7 @@ body {
 .paw-print svg {
     width: 100%;
     height: 100%;
-    fill: #43c6ac;
+    fill: var(--primary-color);
     opacity: 0.6;
 }
 @keyframes walk-and-fade {
@@ -204,7 +326,7 @@ body {
     100% { opacity: 0; transform: scale(1.2); }
 }
 .card {
-    background: #fff;
+    background: var(--white-color);
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.1);
     padding: 32px 24px;
@@ -235,21 +357,20 @@ body {
     position: absolute;
     width: 35px;
     height: 35px;
-    opacity: 0;
-    /* Mendefinisikan jalur elips di sekitar kartu */
-    offset-path: path("M200,25 C370,25 370,450 200,450 C30,450 30,25 200,25 Z");
-    animation: follow-path 6s ease-in-out forwards;
+    opacity: 1;
+    /* Mengganti offset-path dengan transform untuk responsivitas */
+    animation: magic-love-orbit 6s ease-in-out forwards;
 }
 .magic-love svg {
     width: 100%;
     height: 100%;
-    fill: #ff7e9f; /* Warna pink mawar */
-    filter: drop-shadow(0 0 8px #ff7e9f);
+    fill: var(--love-color); /* Warna pink mawar */
+    filter: drop-shadow(0 0 8px var(--love-color));
     animation: spin-and-pulse 1.5s infinite ease-in-out;
 }
-@keyframes follow-path {
-    0% { offset-distance: 0%; opacity: 1; transform: scale(0.8); }
-    100% { offset-distance: 100%; opacity: 0; transform: scale(1.2); }
+@keyframes magic-love-orbit {
+    from { transform: rotate(0deg) translateX(180px) rotate(0deg) scale(0.8); opacity: 1; }
+    to   { transform: rotate(360deg) translateX(180px) rotate(-360deg) scale(1.2); opacity: 0; }
 }
 @keyframes spin-and-pulse {
     0%, 100% { transform: rotate(0deg) scale(1); }
@@ -267,7 +388,7 @@ body {
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 16px;
-    border: 4px solid #43c6ac;
+    border: 4px solid var(--primary-color);
     transition: box-shadow 0.5s ease-in-out; /* Transisi untuk glow */
 }
 .card img.glow {
@@ -276,7 +397,7 @@ body {
 .card h1 {
     font-size: 2rem;
     margin-bottom: 12px;
-    color: #43c6ac;
+    color: var(--primary-color);
 }
 /* Animasi putar untuk judul */
 @keyframes text-spin {
@@ -285,13 +406,13 @@ body {
 }
 .card p {
     font-size: 1.1rem;
-    color: #333;
+    color: var(--text-color);
     margin-bottom: 24px;
 }
 /* Kursor untuk efek mengetik */
 .card p .cursor {
     display: inline-block;
-    background-color: #333;
+    background-color: var(--text-color);
     margin-left: 2px;
     width: 3px;
     animation: blink 1s infinite;
@@ -300,18 +421,18 @@ body {
     0%, 100% { opacity: 1; } 50% { opacity: 0; }
 }
 .btn-surprise {
-    background: #43c6ac;
-    color: #fff;
+    background: var(--primary-color);
+    color: var(--white-color);
     border: none;
     padding: 12px 28px;
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
 }
 .btn-surprise:hover {
-    background: #f8ffae;
-    color: #43c6ac;
+    background: var(--secondary-color);
+    color: var(--primary-color);
 }
 .btn-surprise:disabled {
     background-color: #b0d9d1;
@@ -324,8 +445,8 @@ body {
     bottom: -100px; /* Mulai dari bawah kartu */
     left: 50%;
     transform: translateX(-50%);
-    background: #43c6ac;
-    color: white;
+    background: var(--primary-color);
+    color: var(--white-color);
     padding: 10px 20px;
     border-radius: 20px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
@@ -401,8 +522,8 @@ body {
 .love-piece svg {
     width: 100%;
     height: 100%;
-    fill: #ff7e9f; /* Samakan warna dengan hati lainnya */
-    filter: drop-shadow(0 0 5px #ff7e9f);
+    fill: var(--love-color); /* Samakan warna dengan hati lainnya */
+    filter: drop-shadow(0 0 5px var(--love-color));
 }
 @keyframes love-float {
     0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
@@ -471,9 +592,9 @@ body {
     left: 0; top: 0;
     width: 100%; height: 100%;
 }
-.finale-icon .finale-heart { fill: #ff7e9f; }
+.finale-icon .finale-heart { fill: var(--love-color); }
 .finale-icon .finale-flower {
-    fill: #f8ffae;
+    fill: var(--secondary-color);
     transform: scale(0.6);
     filter: drop-shadow(0 0 10px #ffc371);
     animation-delay: -1.25s; /* Agar animasinya tidak sinkron */

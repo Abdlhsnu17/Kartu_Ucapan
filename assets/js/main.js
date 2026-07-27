@@ -1,7 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elemen DOM ---
+    // --- Konstanta & Elemen DOM ---
+    const PAW_SVG = `<svg viewBox="0 0 512 512"><path d="M256 512c-20.5 0-39.8-8-54.3-22.5l-1.2-1.2c-33-33-33-86.6 0-119.6c16.4-16.4 39.2-25.7 62.7-25.7H352c23.5 0 46.3 9.3 62.7 25.7c33 33 33 86.6 0 119.6l-1.2 1.2C295.8 504 276.5 512 256 512zM128.4 352c-23.5 0-46.3-9.3-62.7-25.7c-33-33-33-86.6 0-119.6c16.4-16.4 39.2-25.7 62.7-25.7h1.6c23.5 0 46.3 9.3 62.7 25.7c33 33 33 86.6 0 119.6c-16.4 16.4-39.2 25.7-62.7 25.7h-1.6zM448 184c-23.5 0-46.3-9.3-62.7 25.7c-33 33-33-86.6 0 119.6c16.4 16.4 39.2 25.7 62.7 25.7h1.6c23.5 0 46.3-9.3 62.7-25.7c33-33 33-86.6 0-119.6c-16.4-16.4-39.2-25.7-62.7-25.7h-1.6zM256 128c-20.5 0-39.8-8-54.3-22.5c-33-33-33-86.6 0-119.6C218.2-10.5 237.5-18.5 258-18.5c19.3 0 37.8 7.3 52.1 20.3c33.3 29.9 34.4 82.1 2.5 113.7C295.8 120 276.5 128 256 128z"/></svg>`;
+    const LOVE_SVG = `<svg viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>`;
+    const FLOWER_SVG = `<svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="7" fill="pink"/><circle cx="8" cy="16" r="5" fill="yellow"/><circle cx="24" cy="16" r="5" fill="yellow"/><circle cx="16" cy="8" r="5" fill="yellow"/><circle cx="16" cy="24" r="5" fill="yellow"/></svg>`;
+    const SPARKLE_SVG = `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+    const ROSE_SVG = `<svg viewBox="0 0 24 24"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S16.41,20,12,20z M12,6c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,6,12,6z M12,16c-2.21,0-4-1.79-4-4s1.79-4,4-4s4,1.79,4,4S14.21,16,12,16z"/></svg>`;
+
     const fake404Screen = document.getElementById('fake-404-screen');
     const fixItBtn = document.getElementById('fix-it-btn');
+    const photoUploadScreen = document.getElementById('photo-upload-screen');
+    const photoUploadInput = document.getElementById('photo-upload-input');
+    const skipUploadBtn = document.getElementById('skip-upload-btn');
     const splash = document.getElementById('splash');
     const mainCard = document.getElementById('mainCard');
     const showMainBtn = document.getElementById('show-main-btn');
@@ -9,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const surpriseMessage = document.getElementById('surprise-message');
     const confettiContainer = document.getElementById('confetti');
     const balloonContainer = document.getElementById('balloon');
-    const flowerContainer = document.getElementById('flower');
+    const sparkleContainer = document.getElementById('sparkle-container');
     const pawContainer = document.getElementById('paw-prints-container');
     const loveContainer = document.getElementById('love-container');
     const surpriseSound = document.getElementById('surprise-sound');
@@ -27,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {function} onComplete - Callback yang dijalankan setelah animasi selesai.
      */
     function createPawAnimation(onComplete) {
-        const pawSVG = `<svg viewBox="0 0 512 512"><path d="M256 512c-20.5 0-39.8-8-54.3-22.5l-1.2-1.2c-33-33-33-86.6 0-119.6c16.4-16.4 39.2-25.7 62.7-25.7H352c23.5 0 46.3 9.3 62.7 25.7c33 33 33 86.6 0 119.6l-1.2 1.2C295.8 504 276.5 512 256 512zM128.4 352c-23.5 0-46.3-9.3-62.7-25.7c-33-33-33-86.6 0-119.6c16.4-16.4 39.2-25.7 62.7-25.7h1.6c23.5 0 46.3 9.3 62.7 25.7c33 33 33 86.6 0 119.6c-16.4 16.4-39.2 25.7-62.7 25.7h-1.6zM448 184c-23.5 0-46.3 9.3-62.7 25.7c-33 33-33 86.6 0 119.6c16.4 16.4 39.2 25.7 62.7 25.7h1.6c23.5 0 46.3-9.3 62.7-25.7c33-33 33-86.6 0-119.6c-16.4-16.4-39.2-25.7-62.7-25.7h-1.6zM256 128c-20.5 0-39.8-8-54.3-22.5c-33-33-33-86.6 0-119.6C218.2-10.5 237.5-18.5 258-18.5c19.3 0 37.8 7.3 52.1 20.3c33.3 29.9 34.4 82.1 2.5 113.7C295.8 120 276.5 128 256 128z"/></svg>`;
         // Posisi untuk jejak kaki dari kiri dan kanan
         const leftPositions = [
             { top: '70%', left: '10%', transform: 'rotate(-20deg)' },
@@ -47,14 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Buat jejak kaki kiri
                 const leftPaw = document.createElement('div');
                 leftPaw.className = 'paw-print';
-                leftPaw.innerHTML = pawSVG;
+                leftPaw.innerHTML = PAW_SVG;
                 Object.assign(leftPaw.style, leftPositions[i]);
                 pawContainer.appendChild(leftPaw);
 
                 // Buat jejak kaki kanan
                 const rightPaw = document.createElement('div');
                 rightPaw.className = 'paw-print';
-                rightPaw.innerHTML = pawSVG;
+                rightPaw.innerHTML = PAW_SVG;
                 Object.assign(rightPaw.style, rightPositions[i]);
                 pawContainer.appendChild(rightPaw);
 
@@ -92,15 +100,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const randomAnimation = animationChoices[Math.floor(Math.random() * animationChoices.length)];
             
             el.className = isLove ? 'love-piece' : 'flower-piece';
-            // Posisi awal tidak lagi relevan karena animasi mengaturnya
-            // el.style.top = `${10 + Math.random() * 80}vh`; 
             el.style.animation = `${randomAnimation} 3s ease-in-out forwards`;
             el.style.animationDelay = `${Math.random() * 2}s`;
 
             if (isLove) {
-                el.innerHTML = `<svg viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>`;
+                el.innerHTML = LOVE_SVG;
             } else {
-                el.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="7" fill="pink"/><circle cx="8" cy="16" r="5" fill="yellow"/><circle cx="24" cy="16" r="5" fill="yellow"/><circle cx="16" cy="8" r="5" fill="yellow"/><circle cx="16" cy="24" r="5" fill="yellow"/></svg>`;
+                el.innerHTML = FLOWER_SVG;
             }
             
             container.appendChild(el);
@@ -162,7 +168,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * Menampilkan layar penutup "Terima Kasih".
      */
     function showFinale() {
-        const roseSVG = `<svg viewBox="0 0 24 24"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S16.41,20,12,20z M12,6c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,6,12,6z M12,16c-2.21,0-4-1.79-4-4s1.79-4,4-4s4,1.79,4,4S14.21,16,12,16z"/></svg>`;
         const animations = [
             'rose-to-center-from-top',
             'rose-to-center-from-bottom',
@@ -178,15 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
         finaleScreen.classList.add('visible');
 
         // Tambahkan ikon hati utama ke kontainer finale
-        const heartSVG = `<svg class="finale-heart" viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>`;
-        finaleIconContainer.innerHTML = heartSVG;
+        finaleIconContainer.innerHTML = `<svg class="finale-heart" viewBox="0 0 512 512">${LOVE_SVG}</svg>`;
 
         // Buat animasi mawar dari 4 sisi
         for (let i = 0; i < 24; i++) {
             setTimeout(() => {
                 const rose = document.createElement('div');
                 rose.className = 'finale-rose';
-                rose.innerHTML = roseSVG;
+                rose.innerHTML = ROSE_SVG;
                 // Pilih animasi secara berurutan dari 4 arah
                 rose.style.animation = `${animations[i % 4]} 2.5s ease-in forwards`;
                 finaleScreen.appendChild(rose);
@@ -205,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const love = document.createElement('div');
         love.className = 'magic-love';
         // SVG untuk ikon hati
-        love.innerHTML = `<svg viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>`;
+        love.innerHTML = `<svg viewBox="0 0 512 512">${LOVE_SVG}</svg>`;
         
         magicLoveContainer.appendChild(love);
 
@@ -241,17 +245,16 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => surpriseMessage.classList.remove('show'), 4000);
 
             // Hapus & buat ulang elemen animasi
-            [confettiContainer, balloonContainer, flowerContainer, loveContainer].forEach(c => c.innerHTML = '');
+            [confettiContainer, balloonContainer, sparkleContainer, loveContainer].forEach(c => c.innerHTML = '');
 
             createAnimatedElements(confettiContainer, 'confetti-piece', 100, 4000);
-            createAnimatedElements(balloonContainer, 'balloon-piece', 12, 3000);
-            createAnimatedElements(flowerContainer, 'flower-piece', 10, 2500);
+            createAnimatedElements(balloonContainer, 'balloon-piece', 12, 5000); // Sesuaikan delay hapus
+            createAnimatedElements(sparkleContainer, 'sparkle-piece', 30, 2000); // Ganti flower jadi sparkle
             createAnimatedElements(loveContainer, 'love-piece', 20, 5000);
 
             // 4. Efek akhir setelah semua animasi dimulai
             setTimeout(() => {
                 cardImage.classList.add('glow'); // Tambahkan efek glow pada foto
-                // surpriseBtn.disabled = false; // Kita tidak akan mengaktifkan tombol ini lagi
 
                 // 5. Tampilkan layar penutup setelah beberapa saat
                 setTimeout(showFinale, 3000);
@@ -281,12 +284,14 @@ document.addEventListener('DOMContentLoaded', () => {
             el.style.animationDelay = `${Math.random() * 1}s`;
             el.style.animationDuration = `${Math.random() * 2 + 3}s`; // Durasi acak
 
-            if (className === 'flower-piece') {
+            if (className === 'sparkle-piece') {
                 el.style.top = `${10 + Math.random() * 80}vh`;
-                el.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="7" fill="pink"/><circle cx="8" cy="16" r="5" fill="yellow"/><circle cx="24" cy="16" r="5" fill="yellow"/><circle cx="16" cy="8" r="5" fill="yellow"/><circle cx="16" cy="24" r="5" fill="yellow"/></svg>`;
+                el.innerHTML = SPARKLE_SVG;
+                el.style.fill = `hsl(${Math.random() * 60 + 200}, 90%, 70%)`; // Warna kebiruan/ungu
+                el.style.animationDuration = `${Math.random() * 1 + 0.5}s`; // Durasi lebih cepat
             } else if (className === 'love-piece') {
                 el.style.background = 'none'; // Hapus background default
-                el.innerHTML = `<svg viewBox="0 0 512 512"><path d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"/></svg>`;
+                el.innerHTML = LOVE_SVG; // SVG sudah didefinisikan
             }
 
             container.appendChild(el);
@@ -301,16 +306,43 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tambahkan event listener ke tombol
     showMainBtn.addEventListener('click', showMain);
     surpriseBtn.addEventListener('click', showSurprise);
+
     fixItBtn.addEventListener('click', () => {
         fake404Screen.style.opacity = '0';
         fake404Screen.addEventListener('transitionend', () => {
             fake404Screen.style.display = 'none';
-            splash.style.display = 'flex'; // Tampilkan splash screen yang asli
+            // Tampilkan layar unggah foto
+            photoUploadScreen.style.display = 'flex';
+            setTimeout(() => photoUploadScreen.style.opacity = '1', 20);
         }, { once: true });
     });
 
-    // Hapus timer otomatis karena alur sekarang dimulai dari klik manual
-    // const autoShowTimer = setTimeout(...)
+    // Fungsi untuk melanjutkan ke splash screen
+    function proceedToSplash() {
+        photoUploadScreen.style.opacity = '0';
+        photoUploadScreen.addEventListener('transitionend', () => {
+            photoUploadScreen.style.display = 'none';
+            splash.style.display = 'flex'; // Tampilkan splash screen yang asli
+        }, { once: true });
+    }
+
+    // Event listener untuk input file
+    photoUploadInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            // Buat URL objek dari file yang dipilih
+            const newPhotoURL = URL.createObjectURL(file);
+            // Ganti sumber gambar di kartu utama
+            cardImage.src = newPhotoURL;
+        }
+        // Lanjutkan ke splash screen setelah memilih foto (atau tidak)
+        proceedToSplash();
+    });
+
+    // Event listener untuk tombol lewati
+    skipUploadBtn.addEventListener('click', () => {
+        proceedToSplash(); // Langsung ke splash screen tanpa mengubah foto
+    });
 
     // --- Service Worker Registration ---
     if ('serviceWorker' in navigator) {

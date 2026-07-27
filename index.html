@@ -17,6 +17,18 @@
         </div>
     </div>
 
+    <!-- Layar Unggah Foto -->
+    <div class="photo-upload-screen" id="photo-upload-screen">
+        <div class="upload-content">
+            <div class="arrow-animation"></div>
+            <h2>Pilih Foto Spesial</h2>
+            <p>Jadikan kartu ini lebih personal dengan fotomu. Jika tidak, foto default akan digunakan.</p>
+            <input type="file" id="photo-upload-input" accept="image/*" hidden>
+            <label for="photo-upload-input" class="upload-btn">Unggah Foto</label>
+            <button id="skip-upload-btn">Lanjutkan Saja</button>
+        </div>
+    </div>
+
     <main>
         <div class="splash" id="splash" style="display: none;">
             <svg class="icon-envelope" viewBox="0 0 64 64" fill="none" aria-hidden="true">
@@ -44,13 +56,15 @@
         </div>
         <div class="confetti" id="confetti"></div>
         <div class="balloon" id="balloon"></div>
-        <div class="flower" id="flower"></div>
+        <div class="sparkle-container" id="sparkle-container"></div>
         <div class="love-container" id="love-container"></div>
     </main>
     <!-- Layar Penutup "Terima Kasih" -->
     <div class="finale-screen" id="finale-screen">
         <div class="finale-content">
             <div class="finale-icon"></div>
+            <h2 class="finale-title">Terima Kasih!</h2>
+            <p class="finale-text">Semoga kamu suka dengan kejutan kecil ini. Have a great day!</p>
         </div>
     </div>
     <audio id="surprise-sound" src="assets/audio/surprise.mp3" preload="auto"></audio>

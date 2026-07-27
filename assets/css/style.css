@@ -73,6 +73,65 @@ body {
 }
 .error-content button:hover { background: #00ff41; color: #1a1a1a; }
 
+/* --- Layar Unggah Foto --- */
+.photo-upload-screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(255,255,255,0.95);
+    display: none; /* Sembunyikan di awal */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1001;
+    text-align: center;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+.upload-content h2 {
+    font-size: 2rem;
+    color: #43c6ac;
+    margin-bottom: 12px;
+}
+.upload-content p {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 24px;
+    max-width: 400px;
+}
+.upload-content .upload-btn,
+.upload-content button {
+    background: #43c6ac;
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0.5rem;
+    transition: background 0.2s, color 0.2s;
+}
+.upload-content .upload-btn:hover,
+.upload-content button:hover {
+    background: #f8ffae;
+    color: #43c6ac;
+}
+.arrow-animation {
+    width: 60px; height: 60px;
+    border-top: 5px solid #43c6ac;
+    border-right: 5px solid #43c6ac;
+    margin: 0 auto 1rem;
+    transform: rotate(-45deg);
+    animation: arrow-move 1.5s infinite ease-in-out;
+}
+@keyframes arrow-move {
+    0% { transform: translateY(10px) translateX(10px) rotate(-45deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-10px) translateX(-10px) rotate(-45deg); opacity: 0; }
+}
+
 .splash {
     position: fixed;
     top: 0; left: 0;
@@ -279,7 +338,7 @@ body {
     opacity: 1;
     bottom: 20px; /* Muncul ke atas */
 }
-.confetti, .balloon, .flower, .love-container {
+.confetti, .balloon, .sparkle-container, .love-container {
     position: fixed;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
@@ -308,26 +367,28 @@ body {
     position: absolute;
     width: 32px; height: 48px;
     border-radius: 16px 16px 16px 16px / 24px 24px 24px 24px;
-    opacity: 0.8;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    animation: balloonUp 2.5s linear forwards;
+    opacity: 0; /* Mulai dari transparan */
+    animation: balloonUp 5s ease-in-out forwards; /* Perpanjang durasi dan ganti timing */
 }
+/* Animasi balon yang lebih natural dengan goyangan */
 @keyframes balloonUp {
-    0% { transform: translateY(100vh) scale(1); }
-    80% { transform: translateY(10vh) scale(1.05);}
-    100% { transform: translateY(-20vh) scale(0.9);}
+    0% { transform: translateY(110vh) translateX(0) rotate(0deg); opacity: 1; }
+    20% { transform: translateY(80vh) translateX(15px) rotate(5deg); }
+    40% { transform: translateY(60vh) translateX(-15px) rotate(-5deg); }
+    60% { transform: translateY(40vh) translateX(10px) rotate(3deg); }
+    80% { transform: translateY(20vh) translateX(-10px) rotate(-3deg); }
+    100% { transform: translateY(-20vh) translateX(0) rotate(0deg); opacity: 0; }
 }
-.flower-piece {
+.sparkle-piece {
     position: absolute;
-    width: 32px; height: 32px;
-    background: transparent;
-    opacity: 0.9;
-    animation: flowerSpin 2s linear forwards;
+    width: 15px; height: 15px;
+    opacity: 0;
+    animation: sparkle-fade 1.5s ease-in-out forwards;
 }
-@keyframes flowerSpin {
-    0% { transform: scale(0.5) rotate(0deg);}
-    80% { transform: scale(1.1) rotate(320deg);}
-    100% { transform: scale(1) rotate(360deg);}
+@keyframes sparkle-fade {
+    0% { transform: scale(0.5); opacity: 1; }
+    100% { transform: scale(1.5) opacity: 0; }
 }
 /* Hati (Love) */
 .love-piece {
@@ -340,8 +401,8 @@ body {
 .love-piece svg {
     width: 100%;
     height: 100%;
-    fill: red;
-    filter: drop-shadow(0 0 5px rgba(255, 20, 20, 0.5));
+    fill: #ff7e9f; /* Samakan warna dengan hati lainnya */
+    filter: drop-shadow(0 0 5px #ff7e9f);
 }
 @keyframes love-float {
     0% { transform: translateY(100vh) scale(0.8); opacity: 1; }
@@ -393,7 +454,7 @@ body {
     text-align: center;
     transform: scale(0.8);
     opacity: 0;
-    animation: finale-fade-in 1s ease-out 1s forwards;
+    animation: finale-fade-in 1s ease-out 2.5s forwards; /* Tambah delay agar mawar selesai animasi */
 }
 @keyframes finale-fade-in {
     to { transform: scale(1); opacity: 1; }
@@ -403,12 +464,12 @@ body {
     width: 200px;
     height: 200px;
     margin: 0 auto 2rem;
+    animation: finale-pulse 2.5s infinite ease-in-out; /* Pindahkan animasi ke sini */
 }
 .finale-icon svg {
     position: absolute;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    animation: finale-pulse 2.5s infinite ease-in-out;
 }
 .finale-icon .finale-heart { fill: #ff7e9f; }
 .finale-icon .finale-flower {
@@ -420,4 +481,21 @@ body {
 @keyframes finale-pulse {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.1); }
+}
+/* -- Perbaikan Animasi Mawar ke Tengah -- */
+@keyframes rose-to-center-from-top {
+    0% { transform: translate(calc(50vw - 15px), -10vh) scale(0.5); opacity: 1; }
+    100% { transform: translate(calc(50vw - 15px), calc(50vh - 100px)) scale(1); opacity: 0; }
+}
+@keyframes rose-to-center-from-bottom {
+    0% { transform: translate(calc(50vw - 15px), 110vh) scale(0.5); opacity: 1; }
+    100% { transform: translate(calc(50vw - 15px), calc(50vh - 100px)) scale(1); opacity: 0; }
+}
+@keyframes rose-to-center-from-left {
+    0% { transform: translate(-10vw, calc(50vh - 15px)) scale(0.5); opacity: 1; }
+    100% { transform: translate(calc(50vw - 100px), calc(50vh - 15px)) scale(1); opacity: 0; }
+}
+@keyframes rose-to-center-from-right {
+    0% { transform: translate(110vw, calc(50vh - 15px)) scale(0.5); opacity: 1; }
+    100% { transform: translate(calc(50vw + 70px), calc(50vh - 15px)) scale(1); opacity: 0; }
 }

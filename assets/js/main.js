@@ -33,6 +33,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const magicLoveContainer = document.getElementById('magic-love-container');
     const finaleScreen = document.getElementById('finale-screen');
     const finaleIconContainer = document.querySelector('.finale-icon');
+    const messageLines = [
+        [document.querySelector('.line-1'), '[MESSAGE_DECRYPTED] // FOR YOUR EYES ONLY'],
+        [document.querySelector('.line-2'), 'Selamat ulang tahun!'],
+        [document.querySelector('.line-3'), 'Semoga hari-harimu selalu dipenuhi hal-hal baik, tawa yang tulus, dan langkah yang membawa kamu semakin dekat pada semua impian.'],
+        [document.querySelector('.line-4'), 'Dengan penuh doa baik, ♡']
+    ];
 
     // --- Fungsi Utilitas ---
 
@@ -42,6 +48,25 @@ document.addEventListener('DOMContentLoaded', () => {
      * @returns {Promise<void>}
      */
     const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+    async function typeMessageLine(element, text, speed = 34) {
+        element.textContent = '';
+        element.classList.add('is-typing');
+        for (const character of text) {
+            element.textContent += character;
+            await delay(character === ' ' ? speed / 2 : speed);
+        }
+        element.classList.remove('is-typing');
+        element.classList.add('typed');
+    }
+
+    async function typeMessageSequence() {
+        await delay(250);
+        for (const [element, text] of messageLines) {
+            await typeMessageLine(element, text, element.classList.contains('line-3') ? 22 : 38);
+            await delay(180);
+        }
+    }
 
     // --- Fungsi Utama ---
 
@@ -181,6 +206,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function createFireworksIntro() {
+        return new Promise(resolve => {
+            loveContainer.innerHTML = '';
+            const colors = ['#55d8ba', '#63a9ff', '#f5c96b', '#ed8c72', '#d78bff'];
+            for (let i = 0; i < 9; i++) {
+                const burst = document.createElement('div');
+                burst.className = 'firework-burst';
+                burst.style.left = `${15 + Math.random() * 70}%`;
+                burst.style.top = `${18 + Math.random() * 48}%`;
+                burst.style.color = colors[i % colors.length];
+                burst.style.animationDelay = `${i * .22}s`;
+                for (let j = 0; j < 16; j++) {
+                    const spark = document.createElement('i');
+                    spark.style.setProperty('--angle', `${j * 22.5}deg`);
+                    spark.style.setProperty('--distance', `${45 + Math.random() * 45}px`);
+                    burst.appendChild(spark);
+                }
+                loveContainer.appendChild(burst);
+            }
+            setTimeout(() => { loveContainer.innerHTML = ''; resolve(); }, 3400);
+        });
+    }
+
     /**
      * Menampilkan kartu ucapan utama dengan transisi fade.
      */
@@ -188,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         showMainBtn.disabled = true; // Nonaktifkan tombol
 
         await createPawAnimation();
-        await createRoseAndLoveIntro();
+        await createFireworksIntro();
 
         splash.style.opacity = '0';
         splash.setAttribute('aria-hidden', 'true');
@@ -197,7 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
             splash.style.display = 'none';
             mainCard.style.display = 'block';
             mainCard.setAttribute('aria-hidden', 'false');
-            setTimeout(() => mainCard.classList.add('show'), 20);
+            setTimeout(() => {
+                mainCard.classList.add('show');
+                typeMessageSequence();
+            }, 20);
         }, { once: true });
     }
 
@@ -370,6 +421,20 @@ document.addEventListener('DOMContentLoaded', () => {
     showMainBtn.addEventListener('click', showMain);
     surpriseBtn.addEventListener('click', showSurprise);
 
+    // Efek parallax halus pada kartu agar terasa lebih tactile di desktop.
+    if (window.matchMedia('(hover: hover)').matches) {
+        mainCard.addEventListener('pointermove', (event) => {
+            if (!mainCard.classList.contains('show')) return;
+            const rect = mainCard.getBoundingClientRect();
+            const rotateX = ((event.clientY - rect.top) / rect.height - .5) * -4;
+            const rotateY = ((event.clientX - rect.left) / rect.width - .5) * 5;
+            mainCard.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        mainCard.addEventListener('pointerleave', () => {
+            mainCard.style.transform = '';
+        });
+    }
+
     fixItBtn.addEventListener('click', () => {
         fake404Screen.style.opacity = '0';
         fake404Screen.addEventListener('transitionend', () => {
@@ -413,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Service Worker Registration ---
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js')
+            navigator.serviceWorker.register('assets/js/sw.js')
                 .then(registration => console.log('Service Worker registered successfully:', registration))
                 .catch(error => console.log('Service Worker registration failed:', error));
         });

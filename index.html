@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kartu Ucapan</title>
+    <title>Untukmu — Kartu Ucapan</title>
+    <meta name="theme-color" content="#102a43">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -21,8 +22,9 @@
     <div class="photo-upload-screen" id="photo-upload-screen">
         <div class="upload-content">
             <div class="arrow-animation"></div>
-            <h2>Satu Sentuhan Personal</h2>
-            <p>Unggah sebuah foto kenangan untuk membuat kejutan ini jauh lebih istimewa. Kamu juga bisa melewatinya jika mau.</p>
+            <span class="eyebrow">LANGKAH 01 · PERSONALISASI</span>
+            <h2>Satu sentuhan personal</h2>
+            <p>Tambahkan foto kenangan untuk membuat pesan ini terasa lebih dekat. Kamu juga bisa melewatinya.</p>
             <input type="file" id="photo-upload-input" accept="image/*" hidden>
             <label for="photo-upload-input" class="upload-btn">Unggah Foto</label>
             <button id="skip-upload-btn">Lewati</button>
@@ -32,40 +34,59 @@
     <!-- Layar Mystery Box -->
     <div class="mystery-box-screen" id="mystery-box-screen" style="display: none;">
         <div class="mystery-content">
-            <h2>Sebuah Kotak Misterius!</h2>
-            <p>Temukan kunci yang tepat untuk membukanya.</p>
+            <span class="eyebrow">[02] AUTH_SEQUENCE // LOCKED</span>
+            <h2>Temukan aksesnya.</h2>
+            <p>Enkripsi pesan berhasil. Pilih kunci yang tepat untuk membuka jalur menuju data kejutan.</p>
         </div>
-        <div class="box-container">
+        <div class="box-container" data-label="ENCRYPTED_PAYLOAD">
             <div class="mystery-box" id="mystery-box">
-                <div class="keyhole"></div>
+                <div class="lock-header"><span class="lock-led"></span> SECURE_LOCK // 256-BIT</div>
+                <div class="keyhole"><span>⌁</span></div>
+                <div class="lock-code">ACCESS <b>••••••</b></div>
             </div>
         </div>
         <div class="keys-container" id="keys-container"></div>
     </div>
 
     <main>
+        <div class="ambient ambient-one" aria-hidden="true"></div>
+        <div class="ambient ambient-two" aria-hidden="true"></div>
+        <div class="hacker-core" aria-hidden="true">
+            <div class="hud-corner hud-tl"></div><div class="hud-corner hud-tr"></div>
+            <div class="hud-corner hud-bl"></div><div class="hud-corner hud-br"></div>
+            <div class="scanline"></div>
+            <div class="matrix-stream matrix-left">01 10 01 11<br>ACCESS // GRANTED<br>01001010<br>LOVE_PROTOCOL<br>11001 0101</div>
+            <div class="matrix-stream matrix-right">SYSTEM ONLINE<br>ENCRYPTED NOTE<br>7F A2 09 C4<br>DECRYPTING...<br>READY_</div>
+            <div class="hud-status"><span class="status-dot"></span> SECURE CHANNEL <b>·</b> 100%</div>
+        </div>
         <div class="splash" id="splash" style="display: none;">
             <svg class="icon-envelope" viewBox="0 0 64 64" fill="none" aria-hidden="true">
                 <rect x="8" y="16" width="48" height="32" rx="6" fill="#43c6ac"/>
                 <polyline points="8,16 32,36 56,16" stroke="#fff" stroke-width="3" fill="none"/>
             </svg>
-            <h2>Selamat Datang!</h2>
-            <p>Terima kasih sudah membuka kartu ucapan ini.<br>Siap membaca pesan spesial?</p>
+            <span class="eyebrow">SEBUAH PESAN KECIL</span>
+            <h2>Selamat datang</h2>
+            <p>Pesan ini ditulis khusus untukmu.<br>Siap membacanya?</p>
             <!-- Wadah untuk animasi jejak kaki -->
             <div class="paw-prints-container" id="paw-prints-container"></div>
             <button id="show-main-btn">Baca Pesan</button>
         </div>
         <!-- Halaman Utama -->
         <div class="card" id="mainCard" aria-hidden="true">
+            <div class="card-topline"><span>03</span><span class="topline-rule"></span><span>DECRYPT_SEQUENCE // READY</span></div>
             <!-- Wadah untuk animasi hati ajaib -->
             <div class="magic-love-container" id="magic-love-container"></div>
             <img src="assets/img/photo.jpg" alt="Foto Ucapan">
-            <h1>Selamat Ulang Tahun!</h1>
-            <p>Semoga hari-harimu selalu penuh kebahagiaan dan kesuksesan. Tetap semangat dan terus berkarya!</p>
-            <button class="btn-surprise" id="surprise-btn">Klik untuk Surprise 🎉</button>
+            <span class="card-label hacker-type line-1" aria-label="Message decrypted"></span>
+            <h1 class="hacker-type line-2"></h1>
+            <div class="card-divider"><span>✦</span></div>
+            <p class="hacker-type line-3"></p>
+            <div class="signature hacker-type line-4"></div>
+            <button class="btn-surprise" id="surprise-btn"><span>Masuk ke surprise</span><span aria-hidden="true">↗</span></button>
             <!-- Pesan Kejutan (Pengganti Alert) -->
             <div class="surprise-message" id="surprise-message">
-                <p>Semoga harimu penuh warna! 🎊</p>
+                <span class="surprise-kicker">SEBUAH CATATAN UNTUKMU</span>
+                <p>Semoga harimu penuh warna dan alasan untuk tersenyum. 🎊</p>
             </div>
         </div>
         <div class="confetti" id="confetti"></div>

@@ -35,9 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const finaleIconContainer = document.querySelector('.finale-icon');
     const messageLines = [
         [document.querySelector('.line-1'), '[MESSAGE_DECRYPTED] // FOR YOUR EYES ONLY'],
-        [document.querySelector('.line-2'), 'Selamat ulang tahun!'],
-        [document.querySelector('.line-3'), 'Semoga hari-harimu selalu dipenuhi hal-hal baik, tawa yang tulus, dan langkah yang membawa kamu semakin dekat pada semua impian.'],
-        [document.querySelector('.line-4'), 'Dengan penuh doa baik, ♡']
+        [document.querySelector('.line-2'), 'Selamat merayakan hari istimewa!'],
+        [document.querySelector('.line-3'), 'Semoga langkahmu selalu dipenuhi hal-hal baik, pencapaian baru, dan alasan untuk terus melangkah lebih jauh.'],
+        [document.querySelector('.line-4'), 'Dari seseorang yang mendukung langkahmu, ✓']
     ];
 
     // --- Fungsi Utilitas ---

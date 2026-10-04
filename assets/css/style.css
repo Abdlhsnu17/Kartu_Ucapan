@@ -723,7 +723,7 @@ main::before { content: ''; position: fixed; inset: 0; z-index: -3; opacity: .22
 .finale-content { position: relative; z-index: 2; }
 .finale-icon { filter: drop-shadow(0 0 30px rgba(214,107,88,.5)); }
 .finale-icon .finale-heart { fill: #e98b76; }
-.finale-content::after { content: 'MADE WITH LOVE · 2026'; display: block; margin-top: 34px; color: rgba(255,255,255,.35); font-size: .6rem; font-weight: 700; letter-spacing: .24em; }
+.finale-content::after { content: '@ Copy Rig · 2026'; display: block; margin-top: 34px; color: rgba(255,255,255,.35); font-size: .6rem; font-weight: 700; letter-spacing: .24em; }
 .fake-404-screen { background: radial-gradient(circle at 50% 50%, #163e54, #08151e 75%); }
 .error-content button { border-radius: 999px; padding: 13px 24px; font-weight: 700; }
 @media (prefers-reduced-motion: reduce) {
@@ -855,7 +855,7 @@ body::after { content: '01001101 00100000 01000101 01001110 01000011 01010010 01
 .finale-screen { background-color: rgba(3,9,13,.97); }
 .finale-title { color: #d9fff5; font-family: 'Courier New', monospace; text-shadow: 0 0 18px rgba(83,226,194,.38); }
 .finale-text { color: #77a69d; font-family: 'Courier New', monospace; }
-.finale-content::after { color: rgba(83,226,194,.42); }
+.finale-content::after { content: 'SECURE MESSAGE · DELIVERED'; color: rgba(83,226,194,.42); }
 .error-content h1 { color: #55d8ba; text-shadow: 0 0 12px #55d8ba, 0 0 30px rgba(83,226,194,.4); }
 
 /* Fireworks intro */

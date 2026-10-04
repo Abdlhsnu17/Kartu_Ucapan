@@ -342,8 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
         surpriseBtn.disabled = true;
         cardImage.classList.remove('glow'); // Reset glow effect
 
-        const originalText = cardParagraph.textContent;
-
         // 1. Animasi awal: getar kartu & putar judul
         mainCard.style.animation = 'card-shake 0.5s';
         mainCard.addEventListener('animationend', () => { mainCard.style.animation = ''; }, { once: true });
@@ -354,10 +352,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // 2.5. Jalankan efek hati ajaib BERSAMAAN dengan efek mengetik
         createMagicLoveEffect();
 
-        // 2. Jalankan efek mengetik dan tunggu hingga selesai
-        await typewriterEffect(cardParagraph, originalText);
-
-        // 3. Kejutan Utama (setelah teks selesai diketik)
+        // 2. Kejutan utama. Pesan sudah didekripsi sekali saat kartu dibuka.
         surpriseSound.currentTime = 0;
         surpriseSound.play();
         surpriseMessage.classList.add('show');

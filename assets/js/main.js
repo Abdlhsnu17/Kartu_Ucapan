@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const FLOWER_SVG = `<svg width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="7" fill="pink"/><circle cx="8" cy="16" r="5" fill="yellow"/><circle cx="24" cy="16" r="5" fill="yellow"/><circle cx="16" cy="8" r="5" fill="yellow"/><circle cx="16" cy="24" r="5" fill="yellow"/></svg>`;
     const KEY_SVG = `<svg viewBox="0 0 24 24" fill="#FFD700"><path d="M18.5,4.5c-1.9,0-3.5,1.6-3.5,3.5s1.6,3.5,3.5,3.5s3.5-1.6,3.5-3.5S20.4,4.5,18.5,4.5z M18.5,9.5c-0.8,0-1.5-0.7-1.5-1.5s0.7-1.5,1.5-1.5s1.5,0.7,1.5,1.5S19.3,9.5,18.5,9.5z"/><path d="M12.3,10.7c-0.6,0.6-1.5,0.6-2.1,0L5.5,6.1C5.2,5.8,4.8,5.5,4.5,5.5c-0.4,0-0.8,0.2-1.1,0.4L2.1,7.2C1.5,7.8,1.5,8.8,2.1,9.4l4.7,4.7l-3.2,3.2c-0.6,0.6-0.6,1.5,0,2.1l1.4,1.4c0.6,0.6,1.5,0.6,2.1,0l3.2-3.2l3.2,3.2c0.6,0.6,1.5,0.6,2.1,0l1.4-1.4c0.6-0.6,0.6-1.5,0-2.1L12.3,10.7z"/></svg>`;
     const SPARKLE_SVG = `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+    const STAR_SVG = `<svg viewBox="0 0 24 24"><path d="M12 2.5l2.75 5.57 6.15.9-4.45 4.34 1.05 6.13L12 16.55l-5.5 2.89 1.05-6.13L3.1 8.97l6.15-.9L12 2.5z"/></svg>`;
     const ROSE_SVG = `<svg viewBox="0 0 24 24"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8S16.41,20,12,20z M12,6c-3.31,0-6,2.69-6,6s2.69,6,6,6s6-2.69,6-6S15.31,6,12,6z M12,16c-2.21,0-4-1.79-4-4s1.79-4,4-4s4,1.79,4,4S14.21,16,12,16z"/></svg>`;
 
     const fake404Screen = document.getElementById('fake-404-screen');
@@ -35,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const finaleIconContainer = document.querySelector('.finale-icon');
     const messageLines = [
         [document.querySelector('.line-1'), '[MESSAGE_DECRYPTED] // FOR YOUR EYES ONLY'],
-        [document.querySelector('.line-2'), 'Selamat merayakan hari istimewa!'],
+        [document.querySelector('.line-2'), 'Semoga semua harapan baikmu segera menjadi nyata!'],
         [document.querySelector('.line-3'), 'Semoga langkahmu selalu dipenuhi hal-hal baik, pencapaian baru, dan alasan untuk terus melangkah lebih jauh.'],
         [document.querySelector('.line-4'), 'Dari seseorang yang mendukung langkahmu, ✓']
     ];
@@ -285,13 +286,6 @@ document.addEventListener('DOMContentLoaded', () => {
      * Menampilkan layar penutup "Terima Kasih".
      */
     function showFinale() {
-        const animations = [
-            'rose-to-center-from-top',
-            'rose-to-center-from-bottom',
-            'rose-to-center-from-left',
-            'rose-to-center-from-right'
-        ];
-
         // Sembunyikan kartu utama
         mainCard.style.opacity = '0';
         mainCard.style.pointerEvents = 'none';
@@ -299,21 +293,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Tampilkan layar finale
         finaleScreen.classList.add('visible');
 
-        // Tambahkan ikon hati utama ke kontainer finale
-        finaleIconContainer.innerHTML = `<svg class="finale-heart" viewBox="0 0 512 512">${LOVE_SVG}</svg>`;
+        // Penutup baru: bintang utama, cap hewan, dan petasan bertahap.
+        finaleIconContainer.innerHTML = `<div class="finale-star">${STAR_SVG}</div><div class="finale-paw">${PAW_SVG}</div>`;
 
-        // Buat animasi mawar dari 4 sisi
-        for (let i = 0; i < 24; i++) {
+        for (let i = 0; i < 10; i++) {
             setTimeout(() => {
-                const rose = document.createElement('div');
-                rose.className = 'finale-rose';
-                rose.innerHTML = ROSE_SVG;
-                // Pilih animasi secara berurutan dari 4 arah
-                rose.style.animation = `${animations[i % 4]} 2.5s ease-in forwards`;
-                finaleScreen.appendChild(rose);
-
-                setTimeout(() => rose.remove(), 2500);
-            }, i * 100); // Jeda antar kemunculan mawar
+                const burst = document.createElement('div');
+                burst.className = 'firework-burst finale-firework';
+                burst.style.left = `${10 + Math.random() * 80}%`;
+                burst.style.top = `${12 + Math.random() * 65}%`;
+                burst.style.color = ['#55d8ba', '#63a9ff', '#f5c96b', '#ed8c72'][i % 4];
+                for (let j = 0; j < 14; j++) {
+                    const spark = document.createElement('i');
+                    spark.style.setProperty('--angle', `${j * (360 / 14)}deg`);
+                    spark.style.setProperty('--distance', `${35 + Math.random() * 40}px`);
+                    burst.appendChild(spark);
+                }
+                finaleScreen.appendChild(burst);
+                setTimeout(() => burst.remove(), 1900);
+            }, i * 280);
         }
     }
 

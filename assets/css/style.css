@@ -585,7 +585,7 @@ body {
     width: 200px;
     height: 200px;
     margin: 0 auto 2rem;
-    animation: finale-pulse 2.5s infinite ease-in-out; /* Pindahkan animasi ke sini */
+    animation: finale-pulse 2.5s infinite ease-in-out;
 }
 .finale-icon svg {
     position: absolute;
@@ -593,6 +593,12 @@ body {
     width: 100%; height: 100%;
 }
 .finale-icon .finale-heart { fill: var(--love-color); }
+.finale-star, .finale-paw { position: absolute; inset: 0; display: grid; place-items: center; }
+.finale-star svg { width: 130px; height: 130px; fill: #f5c96b; filter: drop-shadow(0 0 14px #f5c96b); animation: finale-star-spin 5s linear infinite; }
+.finale-paw { transform: translate(62px, 58px) rotate(22deg); opacity: .9; }
+.finale-paw svg { width: 58px; height: 58px; fill: #55d8ba; filter: drop-shadow(0 0 10px #55d8ba); }
+.finale-firework { z-index: 1; pointer-events: none; }
+@keyframes finale-star-spin { to { transform: rotate(360deg); } }
 .finale-icon .finale-flower {
     fill: var(--secondary-color);
     transform: scale(0.6);
@@ -864,7 +870,7 @@ body::after { content: '01001101 00100000 01000101 01001110 01000011 01010010 01
 .finale-screen { background-color: rgba(3,9,13,.97); }
 .finale-title { color: #d9fff5; font-family: 'Courier New', monospace; text-shadow: 0 0 18px rgba(83,226,194,.38); }
 .finale-text { color: #77a69d; font-family: 'Courier New', monospace; }
-.finale-content::after { content: 'SECURE MESSAGE · DELIVERED'; color: rgba(83,226,194,.42); }
+.finale-content::after { content: '@copyright Abdlhsnu'; color: rgba(83,226,194,.42); }
 .error-content h1 { color: #55d8ba; text-shadow: 0 0 12px #55d8ba, 0 0 30px rgba(83,226,194,.4); }
 
 /* Fireworks intro */
